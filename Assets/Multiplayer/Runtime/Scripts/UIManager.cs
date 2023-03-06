@@ -1,17 +1,22 @@
 using System;
-using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NetworkManagerUI : MonoBehaviour
+public enum NetworkType
+{
+    Host,
+    Client,
+    Server
+}
+
+public class UIManager : MonoBehaviour
 {
     [SerializeField] private Button hostButton;
     [SerializeField] private Button serverButton;
     [SerializeField] private Button clientButton;
     [SerializeField] private GameObject networkUI;
-    [SerializeField] private Loading loading;
-
-    public Action OnButton;
+    
+    public Action<NetworkType> OnButton;
 
     private void OnEnable()
     {
@@ -26,28 +31,22 @@ public class NetworkManagerUI : MonoBehaviour
         serverButton.onClick.RemoveListener(OnServerButton);
         clientButton.onClick.RemoveListener(OnClientButton);
     }
-
+    
     private void OnClientButton()
     {
-        NetworkManager.Singleton.StartClient();
-        OnButton?.Invoke();
-        loading.SetActive(true);
+        OnButton?.Invoke(NetworkType.Client);
         networkUI.SetActive(false);
     }
 
     private void OnServerButton()
     {
-        NetworkManager.Singleton.StartServer();
-        OnButton?.Invoke();
-        loading.SetActive(true);
+        OnButton?.Invoke(NetworkType.Server);
         networkUI.SetActive(false);
     }
 
     private void OnHostButton()
     {
-        NetworkManager.Singleton.StartHost();
-        OnButton?.Invoke();
-        loading.SetActive(true);
+        OnButton?.Invoke(NetworkType.Host);
         networkUI.SetActive(false);
     }
 }
