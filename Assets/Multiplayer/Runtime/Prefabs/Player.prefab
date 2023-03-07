@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4525711436317674737}
   - component: {fileID: 4525711436317674738}
-  - component: {fileID: 4525711436317674736}
   - component: {fileID: 4525711436317674751}
   - component: {fileID: -5460971033242114303}
+  - component: {fileID: 4525711436317674736}
   - component: {fileID: 8031736533486892051}
+  - component: {fileID: 4483715509180712411}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -53,22 +54,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &4525711436317674736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4525711436317674739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acc149ae69adcc042a8836bd2bd2b426, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 4525711436317674738}
-  speed: 6
-  animatorController: {fileID: 9100000, guid: 5677ae5ede55e3c40b9db1fdb9e0dc14, type: 2}
-  avatarModelLoader: {fileID: 8031736533486892051}
 --- !u!114 &4525711436317674751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +96,21 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!114 &4525711436317674736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4525711436317674739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acc149ae69adcc042a8836bd2bd2b426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 6
+  playerAvatarLoader: {fileID: 4483715509180712411}
+  controller: {fileID: 4525711436317674738}
 --- !u!114 &8031736533486892051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,6 +121,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 492fdf892fc24fd29c1e60eb2e54eae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAvatarLoader: {fileID: 4483715509180712411}
+--- !u!114 &4483715509180712411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4525711436317674739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd8fce1286ca4998857f6d51bbc48454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animatorController: {fileID: 9100000, guid: 5677ae5ede55e3c40b9db1fdb9e0dc14, type: 2}

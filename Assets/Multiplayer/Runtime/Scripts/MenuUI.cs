@@ -9,44 +9,48 @@ public enum NetworkType
     Server
 }
 
-public class UIManager : MonoBehaviour
+public class MenuUI : MonoBehaviour
 {
+    [SerializeField] private Button startButton;
     [SerializeField] private Button hostButton;
-    [SerializeField] private Button serverButton;
     [SerializeField] private Button clientButton;
+    [SerializeField] private InputField playerNameField;
+    [SerializeField] private GameObject playerNameUI;
     [SerializeField] private GameObject networkUI;
-    
-    public Action<NetworkType> OnButton;
+
+    public Action<NetworkType, string> OnButton;
+
+    private string playerName;
 
     private void OnEnable()
     {
+        startButton.onClick.AddListener(OnStartButton);
         hostButton.onClick.AddListener(OnHostButton);
-        serverButton.onClick.AddListener(OnServerButton);
         clientButton.onClick.AddListener(OnClientButton);
     }
 
     private void OnDisable()
     {
         hostButton.onClick.RemoveListener(OnHostButton);
-        serverButton.onClick.RemoveListener(OnServerButton);
         clientButton.onClick.RemoveListener(OnClientButton);
     }
-    
-    private void OnClientButton()
+
+    private void OnStartButton()
     {
-        OnButton?.Invoke(NetworkType.Client);
-        networkUI.SetActive(false);
+        playerNameUI.SetActive(false);
+        networkUI.SetActive(true);
+        playerName = playerNameField.text;
     }
 
-    private void OnServerButton()
+    private void OnClientButton()
     {
-        OnButton?.Invoke(NetworkType.Server);
+        OnButton?.Invoke(NetworkType.Client, playerName);
         networkUI.SetActive(false);
     }
 
     private void OnHostButton()
     {
-        OnButton?.Invoke(NetworkType.Host);
+        OnButton?.Invoke(NetworkType.Host, playerName);
         networkUI.SetActive(false);
     }
 }
