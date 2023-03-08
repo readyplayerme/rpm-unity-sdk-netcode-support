@@ -8,8 +8,6 @@ public class Fireball : NetworkBehaviour
     public GameObject player;
     
     private Vector3 direction;
-    
-    
 
     public void SetDirection(Vector3 dir)
     {

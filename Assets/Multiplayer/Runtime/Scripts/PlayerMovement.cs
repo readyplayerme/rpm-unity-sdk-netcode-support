@@ -29,7 +29,7 @@ public class PlayerMovement : NetworkBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            WaitForPunchAnimationServerRpc();
+            SpawnFireballServerRpc();
         }
 
         var horizontalAxis = Input.GetAxis("Horizontal");
@@ -49,7 +49,7 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     [ServerRpc]
-    public void WaitForPunchAnimationServerRpc()
+    private void SpawnFireballServerRpc()
     {
         var fireball = Instantiate(fireballPrefab);
         fireball.transform.position = fireballSpawnTransform.position;
