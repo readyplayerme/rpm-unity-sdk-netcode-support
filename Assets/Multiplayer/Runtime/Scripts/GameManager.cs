@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private const string AVATAR_CREATOR_EXAMPLE_SCENE = "AvatarCreatorExample";
     private const string GAME_SCENE = "Game";
     private const int MAX_PLAYERS = 2;
-    
+
     [SerializeField] private Loading loading;
 
     public string AvatarUrl { get; private set; }
@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
     private AvatarCreatorManager avatarCreatorManager;
 
     private NetworkType networkType;
-
-    private static List<Player> registeredPlayer;
+    
+    private static List<PlayerData> registeredPlayer;
 
     private void Awake()
     {
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         }
 
         menuUI = FindObjectOfType<MenuUI>();
-        registeredPlayer = new List<Player>();
+        registeredPlayer = new List<PlayerData>();
     }
 
     private void OnEnable()
@@ -54,10 +54,13 @@ public class GameManager : MonoBehaviour
         menuUI.OnButton -= LoadScene;
     }
 
-    public void AddRegisteredPlayer(Player player)
+    public void AddRegisteredPlayer(PlayerData playerData)
     {
-        registeredPlayer.Add(player);
-        FindObjectOfType<CameraController>().players.Add(player.Transform);
+        registeredPlayer.Add(playerData);
+        FindObjectOfType<CameraController>().players.Add(playerData.transform);
+        var hud = FindObjectOfType<HUD>();
+        hud.SetPlayerName(playerData.IsPlayer1, playerData.Name);
+        playerData.HealthChanged += health => hud.SetHealth(playerData.IsPlayer1, health);
 
         if (registeredPlayer.Count == MAX_PLAYERS)
         {

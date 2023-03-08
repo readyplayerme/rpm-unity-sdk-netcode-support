@@ -5,10 +5,15 @@ public class PlayerNetworkManager : NetworkBehaviour
 {
     private readonly Vector3 hostPosition = new Vector3(-2.5f, 0, 0);
     private readonly Vector3 clientPosition = new Vector3(2.5f, 0, 0);
+    private readonly NetworkVariable<PlayerNetworkData> playerNetworkData =
+        new NetworkVariable<PlayerNetworkData>(writePerm: NetworkVariableWritePermission.Owner);
 
     [SerializeField] private PlayerAvatarLoader playerAvatarLoader;
 
-    private readonly NetworkVariable<PlayerData> playerData = new NetworkVariable<PlayerData>(writePerm: NetworkVariableWritePermission.Owner);
+    public readonly NetworkVariable<float> Health
+        = new NetworkVariable<float>(1, writePerm: NetworkVariableWritePermission.Owner);
+
+    private PlayerData playerData;
 
     private void OnEnable()
     {
@@ -24,7 +29,7 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         if (IsOwner)
         {
-            playerData.Value = new PlayerData
+            playerNetworkData.Value = new PlayerNetworkData
             {
                 AvatarUrl = GameManager.Instance.AvatarUrl,
                 Name = GameManager.Instance.PlayerName
@@ -40,29 +45,46 @@ public class PlayerNetworkManager : NetworkBehaviour
         {
             if (!IsHost)
             {
-                playerAvatarLoader.Load(playerData.Value.AvatarUrl.ToString());
+                playerAvatarLoader.Load(playerNetworkData.Value.AvatarUrl.ToString());
             }
 
-            playerData.OnValueChanged = (value, newValue) =>
+            playerNetworkData.OnValueChanged = (value, newValue) =>
             {
-                transform.name = playerData.Value.Name.ToString();
+                transform.name = playerNetworkData.Value.Name.ToString();
                 transform.position = IsHost ? hostPosition : clientPosition;
                 transform.rotation = Quaternion.Euler(0, 180, 0);
 
                 playerAvatarLoader.Load(newValue.AvatarUrl.ToString());
             };
         }
+
+        Health.OnValueChanged = (value, newValue) =>
+        {
+            playerData.Damage(newValue);
+        };
+    }
+
+    [ContextMenu("Damage")]
+    public void Damage()
+    {
+        Health.Value -= 0.2f;
     }
 
     private void OnPlayerLoadComplete()
     {
-        Debug.Log("Player " + name + " load complete");
-        GameManager.Instance.AddRegisteredPlayer(new Player
+        playerData = gameObject.AddComponent<PlayerData>();
+        playerData.AvatarUrl = playerNetworkData.Value.AvatarUrl.ToString();
+        playerData.Name = playerNetworkData.Value.Name.ToString();
+        if (IsHost)
         {
-            AvatarUrl = playerData.Value.AvatarUrl.ToString(),
-            Name = playerData.Value.Name.ToString(),
-            IsPlayer1 = (IsHost && IsOwner) || (IsClient && !IsOwner),
-            Transform = transform
-        });
+            playerData.IsPlayer1 = IsOwner;
+        }
+        else
+        {
+            playerData.IsPlayer1 = !IsOwner;
+        }
+
+        Debug.Log("Player " + name + " load complete" + " " + playerData.IsPlayer1);
+        GameManager.Instance.AddRegisteredPlayer(playerData);
     }
 }
