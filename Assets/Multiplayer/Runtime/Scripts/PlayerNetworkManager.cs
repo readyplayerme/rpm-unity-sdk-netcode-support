@@ -7,12 +7,11 @@ public class PlayerNetworkManager : NetworkBehaviour
     private readonly Vector3 clientPosition = new Vector3(2.5f, 0, 0);
     private readonly NetworkVariable<PlayerNetworkData> playerNetworkData =
         new NetworkVariable<PlayerNetworkData>(writePerm: NetworkVariableWritePermission.Owner);
-
-    [SerializeField] private PlayerAvatarLoader playerAvatarLoader;
-
     public readonly NetworkVariable<float> Health
         = new NetworkVariable<float>(1, writePerm: NetworkVariableWritePermission.Owner);
-
+    
+    [SerializeField] private PlayerAvatarLoader playerAvatarLoader;
+    
     private PlayerData playerData;
 
     private void OnEnable()

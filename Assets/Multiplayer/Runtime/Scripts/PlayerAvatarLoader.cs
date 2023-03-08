@@ -29,34 +29,9 @@ public class PlayerAvatarLoader : MonoBehaviour
         avatar.transform.localRotation = Quaternion.identity;
 
         Animator = avatar.GetComponent<Animator>();
+        Animator.applyRootMotion = false;
         Animator.runtimeAnimatorController = animatorController;
-        
-        var leftHand = RecursiveFindChild(avatar.transform, "LeftHand").gameObject;
-        leftHand.AddComponent<BoxCollider>().size = colliderSize;
-        leftHand.tag = COLLIDER_TAG;
-
-        var rightHand = RecursiveFindChild(avatar.transform, "RightHand").gameObject;
-        rightHand.gameObject.AddComponent<BoxCollider>().size = colliderSize;
-        rightHand.tag = COLLIDER_TAG;
 
         Completed?.Invoke();
-    }
-
-    private Transform RecursiveFindChild(Transform parent, string childName)
-    {
-        foreach (Transform child in parent)
-        {
-            if (child.name == childName)
-            {
-                return child;
-            }
-
-            var found = RecursiveFindChild(child, childName);
-            if (found != null)
-            {
-                return found;
-            }
-        }
-        return null;
     }
 }

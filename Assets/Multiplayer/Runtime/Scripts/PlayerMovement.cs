@@ -10,10 +10,11 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private float speed = 6f;
     [SerializeField] private PlayerAvatarLoader playerAvatarLoader;
     [SerializeField] private CharacterController controller;
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject fireballPrefab;
+    [SerializeField] private Transform fireballSpawnTransform;
     
     private bool waitForPunchToFinish;
-    
+
     private void Update()
     {
         if (playerAvatarLoader.Animator != null)
@@ -28,7 +29,7 @@ public class PlayerMovement : NetworkBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            WaitForPunchAnimation();
+            WaitForPunchAnimationServerRpc();
         }
 
         var horizontalAxis = Input.GetAxis("Horizontal");
@@ -47,10 +48,15 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-    public void WaitForPunchAnimation()
+    [ServerRpc]
+    public void WaitForPunchAnimationServerRpc()
     {
-       var projectile = Instantiate(projectilePrefab);
-        // projectile.GetComponent<Projectile>()
-       projectile.GetComponent<NetworkObject>().Spawn();
+        var fireball = Instantiate(fireballPrefab);
+        fireball.transform.position = fireballSpawnTransform.position;
+        var fireballComponent = fireball.GetComponent<Fireball>();
+        fireballComponent.player = gameObject;
+        fireballComponent.SetDirection(transform.forward);
+
+        fireball.GetComponent<NetworkObject>().Spawn();
     }
 }
