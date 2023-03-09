@@ -5,6 +5,7 @@ public class PlayerNetworkManager : NetworkBehaviour
 {
     private readonly Vector3 hostPosition = new Vector3(-2.5f, 0, 0);
     private readonly Vector3 clientPosition = new Vector3(2.5f, 0, 0);
+    
     private readonly NetworkVariable<PlayerNetworkData> playerNetworkData =
         new NetworkVariable<PlayerNetworkData>(writePerm: NetworkVariableWritePermission.Owner);
     public readonly NetworkVariable<float> Health
@@ -63,12 +64,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         };
     }
 
-    [ContextMenu("Damage")]
-    public void Damage()
-    {
-        Health.Value -= 0.2f;
-    }
-
     private void OnPlayerLoadComplete()
     {
         playerData = gameObject.AddComponent<PlayerData>();
@@ -83,7 +78,6 @@ public class PlayerNetworkManager : NetworkBehaviour
             playerData.IsPlayer1 = !IsOwner;
         }
 
-        Debug.Log("Player " + name + " load complete" + " " + playerData.IsPlayer1);
         GameManager.Instance.AddRegisteredPlayer(playerData);
     }
 }

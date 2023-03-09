@@ -1,26 +1,23 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-namespace Multiplayer.Runtime.Scripts
+public class PlayerCollision : NetworkBehaviour
 {
-    public class PlayerCollision : NetworkBehaviour
+    [SerializeField] private PlayerNetworkManager playerNetworkManager;
+
+    private GameObject col;
+
+    private void OnTriggerEnter(Collider other)
     {
-        [SerializeField] private PlayerNetworkManager playerNetworkManager;
-
-        private GameObject col;
-
-        private void OnTriggerEnter(Collider other)
+        if (!IsOwner)
         {
-            if (!IsOwner)
-            {
-                return;
-            }
+            return;
+        }
 
-            col = other.gameObject;
-            if (col.CompareTag("Fireball") && col.GetComponent<Fireball>().player != gameObject)
-            {
-                playerNetworkManager.Health.Value -= 0.2f;
-            }
+        col = other.gameObject;
+        if (col.CompareTag("Fireball"))
+        {
+            playerNetworkManager.Health.Value -= 0.2f;
         }
     }
 }

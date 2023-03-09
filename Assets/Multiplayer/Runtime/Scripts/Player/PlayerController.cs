@@ -38,7 +38,6 @@ public class PlayerController : NetworkBehaviour
         var fireball = Instantiate(fireballPrefab);
         fireball.transform.position = fireballSpawnTransform.position;
         var fireballComponent = fireball.GetComponent<Fireball>();
-        fireballComponent.player = gameObject;
         fireballComponent.SetDirection(transform.forward);
 
         fireball.GetComponent<NetworkObject>().Spawn();

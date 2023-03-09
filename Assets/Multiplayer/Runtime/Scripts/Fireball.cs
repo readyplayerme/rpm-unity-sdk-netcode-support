@@ -5,8 +5,6 @@ public class Fireball : NetworkBehaviour
 {
     [SerializeField] private float speed = 1;
 
-    public GameObject player;
-    
     private Vector3 direction;
 
     public void SetDirection(Vector3 dir)
