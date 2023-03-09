@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 8031736533486892051}
   - component: {fileID: 4483715509180712411}
   - component: {fileID: 7751086122172749679}
-  - component: {fileID: 5676761120410836491}
+  - component: {fileID: -5283565830433811370}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -141,9 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc149ae69adcc042a8836bd2bd2b426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  playerMovement: {fileID: -5283565830433811370}
   playerAvatarLoader: {fileID: 4483715509180712411}
-  controller: {fileID: 4525711436317674738}
   fireballPrefab: {fileID: 1475195968598476399, guid: 56b9087af0c2af5489b1ddd57051f7da, type: 3}
   fireballSpawnTransform: {fileID: 7560452257317331723}
 --- !u!114 &8031736533486892051
@@ -185,22 +184,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNetworkManager: {fileID: 8031736533486892051}
---- !u!95 &5676761120410836491
-Animator:
-  serializedVersion: 3
+--- !u!114 &-5283565830433811370
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4525711436317674739}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: ba5173a85368a4f4eb45fbc497be292c, type: 2}
-  m_Controller: {fileID: 9100000, guid: 5677ae5ede55e3c40b9db1fdb9e0dc14, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15883196bec8403eae997e7689df29fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 4525711436317674738}
+  speed: 6
