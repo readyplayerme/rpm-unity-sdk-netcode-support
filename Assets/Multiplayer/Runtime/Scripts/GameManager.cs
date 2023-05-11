@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public string PlayerName { get; private set; }
 
     private MenuUI menuUI;
-    private AvatarCreatorManager avatarCreatorManager;
+    private AvatarCreatorStateMachine avatarCreatorManager;
 
     private NetworkType networkType;
     
@@ -82,8 +82,8 @@ public class GameManager : MonoBehaviour
         {
             case AVATAR_CREATOR_EXAMPLE_SCENE:
                 loading.SetActive(false);
-                avatarCreatorManager = FindObjectOfType<AvatarCreatorManager>();
-                avatarCreatorManager.Saved += OnAvatarCreatorManagerSaved;
+                avatarCreatorManager = FindObjectOfType<AvatarCreatorStateMachine>();
+                avatarCreatorManager.AvatarSaved += OnAvatarCreatorManagerSaved;
                 break;
             case GAME_SCENE:
                 StartNetwork();
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 
     private void OnAvatarCreatorManagerSaved(string avatarId)
     {
-        avatarCreatorManager.Saved -= OnAvatarCreatorManagerSaved;
+        avatarCreatorManager.AvatarSaved -= OnAvatarCreatorManagerSaved;
         AvatarUrl = $"{Endpoints.AVATAR_API_V1}/{avatarId}.glb";
         SceneManager.LoadSceneAsync(GAME_SCENE);
         loading.SetActive(true);
