@@ -1,22 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UILogger : MonoBehaviour
+namespace ReadyPlayerMe.Multiplayer
 {
-    [SerializeField] private Text text;
-
-    private void OnEnable()
+    public class UILogger : MonoBehaviour
     {
-        Application.logMessageReceived += OnLogReceived;
-    }
+        [SerializeField] private Text text;
 
-    private void OnDisable()
-    {
-        Application.logMessageReceived -= OnLogReceived;
-    }
+        private void OnEnable()
+        {
+            Application.logMessageReceived += OnLogReceived;
+        }
 
-    private void OnLogReceived(string condition, string stacktrace, LogType type)
-    {
-        text.text += condition + "\n";
+        private void OnDisable()
+        {
+            Application.logMessageReceived -= OnLogReceived;
+        }
+
+        private void OnLogReceived(string condition, string stacktrace, LogType type)
+        {
+            text.text += condition + "\n";
+        }
     }
 }

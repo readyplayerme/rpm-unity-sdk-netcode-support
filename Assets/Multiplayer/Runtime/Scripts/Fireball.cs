@@ -1,39 +1,42 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-public class Fireball : NetworkBehaviour
+namespace ReadyPlayerMe.Multiplayer
 {
-    [SerializeField] private float speed = 1;
-
-    private Vector3 direction;
-
-    public void SetDirection(Vector3 dir)
+    public class Fireball : NetworkBehaviour
     {
-        direction = dir.normalized;
-    }
+        [SerializeField] private float speed = 1;
 
-    private void Start()
-    {
-        if (IsHost)
+        private Vector3 direction;
+
+        public void SetDirection(Vector3 dir)
         {
-            Invoke(nameof(Destroy), 3f);
+            direction = dir.normalized;
         }
-    }
 
-    public void Update()
-    {
-        transform.Translate(direction * speed);
-    }
+        private void Start()
+        {
+            if (IsHost)
+            {
+                Invoke(nameof(Destroy), 3f);
+            }
+        }
 
-    public override void OnDestroy()
-    {
-        base.OnDestroy();
-        CancelInvoke();
-    }
+        public void Update()
+        {
+            transform.Translate(direction * speed);
+        }
 
-    private void Destroy()
-    {
-        GetComponent<NetworkObject>().Despawn();
-        Destroy(gameObject);
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            CancelInvoke();
+        }
+
+        private void Destroy()
+        {
+            GetComponent<NetworkObject>().Despawn();
+            Destroy(gameObject);
+        }
     }
 }

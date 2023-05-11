@@ -1,20 +1,23 @@
 using Unity.Netcode;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-public class PlayerNetworkAnimator : MonoBehaviour
+namespace ReadyPlayerMe.Multiplayer
 {
-    private static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));
-    private Animator animator;
-
-    private void Awake()
+    [RequireComponent(typeof(Animator))]
+    public class PlayerNetworkAnimator : MonoBehaviour
     {
-        animator = GetComponent<Animator>();
-    }
+        private static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));
+        private Animator animator;
 
-    [ServerRpc]
-    public void HandleAnimationServerRpc(bool isWalking)
-    {
-        animator.SetBool(IsWalking, isWalking);
+        private void Awake()
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        [ServerRpc]
+        public void HandleAnimationServerRpc(bool isWalking)
+        {
+            animator.SetBool(IsWalking, isWalking);
+        }
     }
 }

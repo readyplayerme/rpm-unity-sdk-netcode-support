@@ -1,18 +1,21 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerData: MonoBehaviour
+namespace ReadyPlayerMe.Multiplayer
 {
-    public string Name;
-    public string AvatarUrl;
-    public bool IsPlayer1;
-    public float Health;
-
-    public Action<float> HealthChanged;
-    
-    public void Damage(float newValue)
+    public class PlayerData : MonoBehaviour
     {
-        Health = newValue;
-        HealthChanged?.Invoke(Health);
+        public string Name;
+        public string AvatarUrl;
+        public bool IsPlayer1;
+        public float Health;
+
+        public Action<float> HealthChanged;
+
+        public void Damage(float newValue)
+        {
+            Health = newValue;
+            HealthChanged?.Invoke(Health);
+        }
     }
 }

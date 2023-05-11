@@ -1,83 +1,86 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerNetworkManager : NetworkBehaviour
+namespace ReadyPlayerMe.Multiplayer
 {
-    private readonly Vector3 hostPosition = new Vector3(-2.5f, 0, 0);
-    private readonly Vector3 clientPosition = new Vector3(2.5f, 0, 0);
-    
-    private readonly NetworkVariable<PlayerNetworkData> playerNetworkData =
-        new NetworkVariable<PlayerNetworkData>(writePerm: NetworkVariableWritePermission.Owner);
-    public readonly NetworkVariable<float> Health
-        = new NetworkVariable<float>(1, writePerm: NetworkVariableWritePermission.Owner);
-    
-    [SerializeField] private PlayerAvatarLoader playerAvatarLoader;
-    
-    private PlayerData playerData;
-
-    private void OnEnable()
+    public class PlayerNetworkManager : NetworkBehaviour
     {
-        playerAvatarLoader.Completed += OnPlayerLoadComplete;
-    }
+        private readonly Vector3 hostPosition = new Vector3(-2.5f, 0, 0);
+        private readonly Vector3 clientPosition = new Vector3(2.5f, 0, 0);
 
-    private void OnDisable()
-    {
-        playerAvatarLoader.Completed -= OnPlayerLoadComplete;
-    }
+        private readonly NetworkVariable<PlayerNetworkData> playerNetworkData =
+            new NetworkVariable<PlayerNetworkData>(writePerm: NetworkVariableWritePermission.Owner);
+        public readonly NetworkVariable<float> Health
+            = new NetworkVariable<float>(1, writePerm: NetworkVariableWritePermission.Owner);
 
-    public override void OnNetworkSpawn()
-    {
-        if (IsOwner)
+        [SerializeField] private PlayerAvatarLoader playerAvatarLoader;
+
+        private PlayerData playerData;
+
+        private void OnEnable()
         {
-            playerNetworkData.Value = new PlayerNetworkData
-            {
-                AvatarUrl = GameManager.Instance.AvatarUrl,
-                Name = GameManager.Instance.PlayerName
-            };
-
-            transform.name = GameManager.Instance.PlayerName;
-            transform.position = IsHost ? hostPosition : clientPosition;
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-
-            playerAvatarLoader.Load(GameManager.Instance.AvatarUrl);
+            playerAvatarLoader.Completed += OnPlayerLoadComplete;
         }
-        else
-        {
-            if (!IsHost)
-            {
-                playerAvatarLoader.Load(playerNetworkData.Value.AvatarUrl.ToString());
-            }
 
-            playerNetworkData.OnValueChanged = (value, newValue) =>
+        private void OnDisable()
+        {
+            playerAvatarLoader.Completed -= OnPlayerLoadComplete;
+        }
+
+        public override void OnNetworkSpawn()
+        {
+            if (IsOwner)
             {
-                transform.name = playerNetworkData.Value.Name.ToString();
+                playerNetworkData.Value = new PlayerNetworkData
+                {
+                    AvatarUrl = GameManager.Instance.AvatarUrl,
+                    Name = GameManager.Instance.PlayerName
+                };
+
+                transform.name = GameManager.Instance.PlayerName;
                 transform.position = IsHost ? hostPosition : clientPosition;
                 transform.rotation = Quaternion.Euler(0, 180, 0);
 
-                playerAvatarLoader.Load(newValue.AvatarUrl.ToString());
+                playerAvatarLoader.Load(GameManager.Instance.AvatarUrl);
+            }
+            else
+            {
+                if (!IsHost)
+                {
+                    playerAvatarLoader.Load(playerNetworkData.Value.AvatarUrl.ToString());
+                }
+
+                playerNetworkData.OnValueChanged = (value, newValue) =>
+                {
+                    transform.name = playerNetworkData.Value.Name.ToString();
+                    transform.position = IsHost ? hostPosition : clientPosition;
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+
+                    playerAvatarLoader.Load(newValue.AvatarUrl.ToString());
+                };
+            }
+
+            Health.OnValueChanged = (value, newValue) =>
+            {
+                playerData.Damage(newValue);
             };
         }
 
-        Health.OnValueChanged = (value, newValue) =>
+        private void OnPlayerLoadComplete()
         {
-            playerData.Damage(newValue);
-        };
-    }
+            playerData = gameObject.AddComponent<PlayerData>();
+            playerData.AvatarUrl = playerNetworkData.Value.AvatarUrl.ToString();
+            playerData.Name = playerNetworkData.Value.Name.ToString();
+            if (IsHost)
+            {
+                playerData.IsPlayer1 = IsOwner;
+            }
+            else
+            {
+                playerData.IsPlayer1 = !IsOwner;
+            }
 
-    private void OnPlayerLoadComplete()
-    {
-        playerData = gameObject.AddComponent<PlayerData>();
-        playerData.AvatarUrl = playerNetworkData.Value.AvatarUrl.ToString();
-        playerData.Name = playerNetworkData.Value.Name.ToString();
-        if (IsHost)
-        {
-            playerData.IsPlayer1 = IsOwner;
+            GameManager.Instance.AddRegisteredPlayer(playerData);
         }
-        else
-        {
-            playerData.IsPlayer1 = !IsOwner;
-        }
-
-        GameManager.Instance.AddRegisteredPlayer(playerData);
     }
 }

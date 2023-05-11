@@ -1,35 +1,38 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUD : MonoBehaviour
+namespace ReadyPlayerMe.Multiplayer
 {
-    [SerializeField] private Text player1NameField;
-    [SerializeField] private Text player2NameField;
-    [SerializeField] private Slider player1Health;
-    [SerializeField] private Slider player2Health;
-
-    public void SetPlayerName(bool isPlayer1, string playerName)
+    public class HUD : MonoBehaviour
     {
-        if (isPlayer1)
-        {
-            player1NameField.text = playerName;
-        }
-        else
-        {
-            player2NameField.text = playerName;
-        }
-    }
+        [SerializeField] private Text player1NameField;
+        [SerializeField] private Text player2NameField;
+        [SerializeField] private Slider player1Health;
+        [SerializeField] private Slider player2Health;
 
-    public void SetHealth(bool isPlayer1, float health)
-    {
-        if (isPlayer1)
+        public void SetPlayerName(bool isPlayer1, string playerName)
         {
-            player1Health.value = health;
-
+            if (isPlayer1)
+            {
+                player1NameField.text = playerName;
+            }
+            else
+            {
+                player2NameField.text = playerName;
+            }
         }
-        else
+
+        public void SetHealth(bool isPlayer1, float health)
         {
-            player2Health.value = health;
+            if (isPlayer1)
+            {
+                player1Health.value = health;
+
+            }
+            else
+            {
+                player2Health.value = health;
+            }
         }
     }
 }

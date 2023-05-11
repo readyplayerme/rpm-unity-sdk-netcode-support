@@ -1,45 +1,48 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerController : NetworkBehaviour
+namespace ReadyPlayerMe.Multiplayer
 {
-    private static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));
-    private readonly NetworkVariable<bool> isWalking =
-        new NetworkVariable<bool>(writePerm: NetworkVariableWritePermission.Owner);
-
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerAvatarLoader playerAvatarLoader;
-    [SerializeField] private GameObject fireballPrefab;
-    [SerializeField] private Transform fireballSpawnTransform;
-
-    private void Update()
+    public class PlayerController : NetworkBehaviour
     {
-        if (playerAvatarLoader.Animator != null)
+        private static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));
+        private readonly NetworkVariable<bool> isWalking =
+            new NetworkVariable<bool>(writePerm: NetworkVariableWritePermission.Owner);
+
+        [SerializeField] private PlayerMovement playerMovement;
+        [SerializeField] private PlayerAvatarLoader playerAvatarLoader;
+        [SerializeField] private GameObject fireballPrefab;
+        [SerializeField] private Transform fireballSpawnTransform;
+
+        private void Update()
         {
-            playerAvatarLoader.Animator.SetBool(IsWalking, isWalking.Value);
+            if (playerAvatarLoader.Animator != null)
+            {
+                playerAvatarLoader.Animator.SetBool(IsWalking, isWalking.Value);
+            }
+
+            if (!IsOwner)
+            {
+                return;
+            }
+
+            if (PlayerInput.IsHoldingSpace)
+            {
+                SpawnFireballServerRpc();
+            }
+
+            isWalking.Value = playerMovement.ProcessMovement();
         }
 
-        if (!IsOwner)
+        [ServerRpc]
+        private void SpawnFireballServerRpc()
         {
-            return;
+            var fireball = Instantiate(fireballPrefab);
+            fireball.transform.position = fireballSpawnTransform.position;
+            var fireballComponent = fireball.GetComponent<Fireball>();
+            fireballComponent.SetDirection(transform.forward);
+
+            fireball.GetComponent<NetworkObject>().Spawn();
         }
-
-        if (PlayerInput.IsHoldingSpace)
-        {
-            SpawnFireballServerRpc();
-        }
-
-        isWalking.Value = playerMovement.ProcessMovement();
-    }
-
-    [ServerRpc]
-    private void SpawnFireballServerRpc()
-    {
-        var fireball = Instantiate(fireballPrefab);
-        fireball.transform.position = fireballSpawnTransform.position;
-        var fireballComponent = fireball.GetComponent<Fireball>();
-        fireballComponent.SetDirection(transform.forward);
-
-        fireball.GetComponent<NetworkObject>().Spawn();
     }
 }

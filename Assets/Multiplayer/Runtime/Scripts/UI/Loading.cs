@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class Loading : MonoBehaviour
+namespace ReadyPlayerMe.Multiplayer
 {
-    [SerializeField] private GameObject loadingPanel;
-
-    public void SetActive(bool enable)
+    public class Loading : MonoBehaviour
     {
-        loadingPanel.SetActive(enable);
+        [SerializeField] private GameObject loadingPanel;
+
+        public void SetActive(bool enable)
+        {
+            loadingPanel.SetActive(enable);
+        }
     }
 }
