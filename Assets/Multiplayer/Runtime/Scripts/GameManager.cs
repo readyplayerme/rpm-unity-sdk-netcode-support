@@ -95,8 +95,11 @@ namespace ReadyPlayerMe.Multiplayer
 
         private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
-            loading.SetActive(false);
-            StartNetwork();
+            if (arg0.name == GAME_SCENE)
+            {
+                loading.SetActive(false);
+                StartNetwork();
+            } 
         }
 
         private void StartNetwork()
