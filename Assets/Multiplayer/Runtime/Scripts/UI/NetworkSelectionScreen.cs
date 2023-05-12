@@ -15,7 +15,7 @@ namespace ReadyPlayerMe.Multiplayer
     {
         [SerializeField] private Button hostButton;
         [SerializeField] private Button clientButton;
-        
+
         public Action<NetworkType> OnButton;
 
         private void OnEnable()

@@ -71,7 +71,6 @@ namespace ReadyPlayerMe.Multiplayer
             GameManager.Instance.RemovePlayer(playerData);
         }
 
-
         private void OnPlayerLoadComplete()
         {
             playerData = gameObject.AddComponent<PlayerData>();

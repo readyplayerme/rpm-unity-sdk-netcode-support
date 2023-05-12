@@ -99,7 +99,7 @@ namespace ReadyPlayerMe.Multiplayer
             {
                 loading.SetActive(false);
                 StartNetwork();
-            } 
+            }
         }
 
         private void StartNetwork()
