@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using ReadyPlayerMe.AvatarCreator;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,21 +10,20 @@ namespace ReadyPlayerMe.Multiplayer
     {
         public static GameManager Instance { get; private set; }
 
-        private const string AVATAR_CREATOR_EXAMPLE_SCENE = "AvatarCreatorExample";
         private const string GAME_SCENE = "Game";
-        private const int MAX_PLAYERS = 2;
+        private const int MIN_PLAYERS = 2;
 
         [SerializeField] private Loading loading;
 
         public string AvatarUrl { get; private set; }
         public string PlayerName { get; private set; }
 
-        private MenuUI menuUI;
-        private AvatarCreatorStateMachine avatarCreatorManager;
+        private NetworkSelectionScreen networkSelectionScreen;
+        private StartScreen startScreen;
 
         private NetworkType networkType;
 
-        private static List<PlayerData> registeredPlayer;
+        private static List<PlayerData> players;
 
         private void Awake()
         {
@@ -39,65 +37,66 @@ namespace ReadyPlayerMe.Multiplayer
                 DontDestroyOnLoad(this);
             }
 
-            menuUI = FindObjectOfType<MenuUI>();
-            registeredPlayer = new List<PlayerData>();
+            startScreen = FindObjectOfType<StartScreen>();
+            networkSelectionScreen = FindObjectOfType<NetworkSelectionScreen>();
+
+            players = new List<PlayerData>();
         }
 
         private void OnEnable()
         {
+            startScreen.OnStart += OnStart;
+            networkSelectionScreen.OnButton += LoadScene;
             SceneManager.sceneLoaded += OnSceneLoaded;
-            menuUI.OnButton += LoadScene;
         }
 
         private void OnDisable()
         {
+            startScreen.OnStart -= OnStart;
+            networkSelectionScreen.OnButton -= LoadScene;
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            menuUI.OnButton -= LoadScene;
         }
 
-        public void AddRegisteredPlayer(PlayerData playerData)
+        public void AddPlayer(PlayerData playerData)
         {
-            registeredPlayer.Add(playerData);
+            players.Add(playerData);
             FindObjectOfType<CameraController>().players.Add(playerData.transform);
             var hud = FindObjectOfType<HUD>();
             hud.SetPlayerName(playerData.IsPlayer1, playerData.Name);
             playerData.HealthChanged += health => hud.SetHealth(playerData.IsPlayer1, health);
 
-            if (registeredPlayer.Count == MAX_PLAYERS)
+            if (players.Count >= MIN_PLAYERS)
             {
                 loading.SetActive(false);
             }
         }
 
-        private void LoadScene(NetworkType network, string playerName)
+        public void RemovePlayer(PlayerData playerData)
+        {
+            players.Remove(playerData);
+            FindObjectOfType<CameraController>().players.Remove(playerData.transform);
+        }
+
+        private void OnStart(string playerName, string avatarUrl)
+        {
+            PlayerName = playerName;
+            AvatarUrl = avatarUrl;
+            startScreen.gameObject.SetActive(false);
+            networkSelectionScreen.gameObject.SetActive(true);
+        }
+
+        private void LoadScene(NetworkType network)
         {
             loading.SetActive(true);
+            networkSelectionScreen.gameObject.SetActive(false);
             networkType = network;
-            PlayerName = playerName;
-            SceneManager.LoadScene(AVATAR_CREATOR_EXAMPLE_SCENE);
+            SceneManager.LoadScene(GAME_SCENE);
         }
 
         private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
-            switch (arg0.name)
-            {
-                case AVATAR_CREATOR_EXAMPLE_SCENE:
-                    loading.SetActive(false);
-                    avatarCreatorManager = FindObjectOfType<AvatarCreatorStateMachine>();
-                    avatarCreatorManager.AvatarSaved += OnAvatarCreatorManagerSaved;
-                    break;
-                case GAME_SCENE:
-                    StartNetwork();
-                    break;
-            }
-        }
-
-        private void OnAvatarCreatorManagerSaved(string avatarId)
-        {
-            avatarCreatorManager.AvatarSaved -= OnAvatarCreatorManagerSaved;
-            AvatarUrl = $"{Endpoints.AVATAR_API_V1}/{avatarId}.glb";
-            SceneManager.LoadSceneAsync(GAME_SCENE);
-            loading.SetActive(true);
+            loading.SetActive(false);
+            StartNetwork();
         }
 
         private void StartNetwork()

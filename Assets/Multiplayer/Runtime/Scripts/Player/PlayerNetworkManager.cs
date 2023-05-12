@@ -66,6 +66,12 @@ namespace ReadyPlayerMe.Multiplayer
             };
         }
 
+        public override void OnNetworkDespawn()
+        {
+            GameManager.Instance.RemovePlayer(playerData);
+        }
+
+
         private void OnPlayerLoadComplete()
         {
             playerData = gameObject.AddComponent<PlayerData>();
@@ -80,7 +86,7 @@ namespace ReadyPlayerMe.Multiplayer
                 playerData.IsPlayer1 = !IsOwner;
             }
 
-            GameManager.Instance.AddRegisteredPlayer(playerData);
+            GameManager.Instance.AddPlayer(playerData);
         }
     }
 }
