@@ -2,8 +2,9 @@
 
 ![image](https://github.com/readyplayerme/rpm-unity-netcode-example/assets/1121080/b29dcb1d-5240-4249-b296-1abd6ee96caa)
 
-This repository contains a Unity project that uses [Netcode](https://unity.com/products/netcode) and Ready [Player Me Unity SDK](https://github.com/readyplayerme/rpm-unity-sdk-core) inside to demonstrate working example of a multiplayer. This project can be used as a reference for anybody wanting to use Ready Player Me Unity sdk to create a multiplayer using unity Netcode. 
-It showcases a rudimentary PvP Fighting game(eg, Street Fighter, Tekken).
+This repository contains a Unity project that uses [Netcode](https://unity.com/products/netcode) and [Ready Player Me Unity SDK](https://github.com/readyplayerme/rpm-unity-sdk-core) to demonstrate working example of a multiplayer.
+It can be used as a reference for anyone wanting to use Ready Player Me Unity SDK to create a multiplayer using Unity Netcode. 
+It showcases a rudimentary PvP fighting game (e.g., Street Fighter, Tekken)
 
 > Note: This repo doesn't contain a completed game but rather a working example of a very basic multiplayer fighting game.
 
@@ -18,6 +19,7 @@ It showcases a rudimentary PvP Fighting game(eg, Street Fighter, Tekken).
 - [Multiplayer Samples Coop](https://docs-multiplayer.unity3d.com/netcode/current/components/networktransform/#owner-authoritative-mode) - main
 
 ## Quick Start
+- Clone the project.
 - Run from editor or build.
 - Enter player name and a RPM avatar url. 
 - Host a server or join as a client.
@@ -25,7 +27,7 @@ It showcases a rudimentary PvP Fighting game(eg, Street Fighter, Tekken).
 
 ## Netcode API Used 
 #### [Network Mananger](https://docs-multiplayer.unity3d.com/netcode/current/components/networkmanager/)
-- To start host, server, or client. 
+- Used for starting as host, server, or client. 
 - Provides API for checking if isHost, isOwner, and isClient. 
 - For spawning player and fireball.
 
@@ -40,7 +42,7 @@ It showcases a rudimentary PvP Fighting game(eg, Street Fighter, Tekken).
 - A remote procedure call (RPC) that can be only invoked by a client and will always be received and executed on the server/host.
 - Used for spawning fireball on server when a client player fires it.
 
-### TODO
+## TODO
 
 - Use [Network Animator](https://docs-multiplayer.unity3d.com/netcode/current/learn/dilmer/networkanimator/) instead of syncing animator parameters using network variable.
 - Fix player rotation sync.
