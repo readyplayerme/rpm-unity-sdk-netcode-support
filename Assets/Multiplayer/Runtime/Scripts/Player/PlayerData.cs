@@ -3,12 +3,13 @@ using UnityEngine;
 
 namespace ReadyPlayerMe.Multiplayer
 {
-    public class PlayerData : MonoBehaviour
+    public class PlayerData
     {
         public string Name;
-        public string AvatarUrl;
         public bool IsPlayer1;
         public float Health;
+        
+        public Transform Transform;
 
         public Action<float> HealthChanged;
 

@@ -20,7 +20,9 @@ namespace ReadyPlayerMe.Multiplayer
 
         private NetworkSelectionScreen networkSelectionScreen;
         private StartScreen startScreen;
-
+        private HUD hud;
+        private CameraController cameraController;
+        
         private NetworkType networkType;
 
         private static List<PlayerData> players;
@@ -56,12 +58,19 @@ namespace ReadyPlayerMe.Multiplayer
             networkSelectionScreen.OnButton -= LoadScene;
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
-
+        
         public void AddPlayer(PlayerData playerData)
         {
             players.Add(playerData);
-            FindObjectOfType<CameraController>().players.Add(playerData.transform);
-            var hud = FindObjectOfType<HUD>();
+            if (cameraController == null)
+            {
+                cameraController = FindObjectOfType<CameraController>();
+            }
+            cameraController.players.Add(playerData.Transform);
+            if (hud == null)
+            {
+                hud = FindObjectOfType<HUD>();
+            }
             hud.SetPlayerName(playerData.IsPlayer1, playerData.Name);
             playerData.HealthChanged += health => hud.SetHealth(playerData.IsPlayer1, health);
 
@@ -74,7 +83,7 @@ namespace ReadyPlayerMe.Multiplayer
         public void RemovePlayer(PlayerData playerData)
         {
             players.Remove(playerData);
-            FindObjectOfType<CameraController>().players.Remove(playerData.transform);
+            cameraController.players.Remove(playerData.Transform);
         }
 
         private void OnStart(string playerName, string avatarUrl)

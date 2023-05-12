@@ -6,7 +6,10 @@ namespace ReadyPlayerMe.Multiplayer
     public class PlayerNetworkManager : NetworkBehaviour
     {
         private readonly Vector3 hostPosition = new Vector3(-2.5f, 0, 0);
+        private readonly Quaternion hostRotation = Quaternion.Euler(0, 90, 0);
+
         private readonly Vector3 clientPosition = new Vector3(2.5f, 0, 0);
+        private readonly Quaternion clientRotation = Quaternion.Euler(0, -90, 0);
 
         private readonly NetworkVariable<PlayerNetworkData> playerNetworkData =
             new NetworkVariable<PlayerNetworkData>(writePerm: NetworkVariableWritePermission.Owner);
@@ -38,8 +41,7 @@ namespace ReadyPlayerMe.Multiplayer
                 };
 
                 transform.name = GameManager.Instance.PlayerName;
-                transform.position = IsHost ? hostPosition : clientPosition;
-                transform.rotation = Quaternion.Euler(0, 180, 0);
+                SetPlayerPositionAndRotation();
 
                 playerAvatarLoader.Load(GameManager.Instance.AvatarUrl);
             }
@@ -53,8 +55,7 @@ namespace ReadyPlayerMe.Multiplayer
                 playerNetworkData.OnValueChanged = (value, newValue) =>
                 {
                     transform.name = playerNetworkData.Value.Name.ToString();
-                    transform.position = IsHost ? hostPosition : clientPosition;
-                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    SetPlayerPositionAndRotation();
 
                     playerAvatarLoader.Load(newValue.AvatarUrl.ToString());
                 };
@@ -73,19 +74,34 @@ namespace ReadyPlayerMe.Multiplayer
 
         private void OnPlayerLoadComplete()
         {
-            playerData = gameObject.AddComponent<PlayerData>();
-            playerData.AvatarUrl = playerNetworkData.Value.AvatarUrl.ToString();
+            playerData = new PlayerData();
+            playerData.Transform = transform;
             playerData.Name = playerNetworkData.Value.Name.ToString();
+            playerData.IsPlayer1 = CheckIfPlayer1();
+
+            GameManager.Instance.AddPlayer(playerData);
+        }
+
+        private void SetPlayerPositionAndRotation()
+        {
             if (IsHost)
             {
-                playerData.IsPlayer1 = IsOwner;
+                transform.SetPositionAndRotation(hostPosition, hostRotation);
             }
             else
             {
-                playerData.IsPlayer1 = !IsOwner;
+                transform.SetPositionAndRotation(clientPosition, clientRotation);
+            }
+        }
+
+        private bool CheckIfPlayer1()
+        {
+            if (IsHost)
+            {
+                return IsOwner;
             }
 
-            GameManager.Instance.AddPlayer(playerData);
+            return !IsOwner;
         }
     }
 }
