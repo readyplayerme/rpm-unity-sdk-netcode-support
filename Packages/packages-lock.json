@@ -12,16 +12,6 @@
       },
       "hash": "76f76584a113b240a4ec11f324b17302bde9a53a"
     },
-    "com.readyplayerme.avatarcreator": {
-      "version": "https://github.com/readyplayerme/rpm-unity-sdk-avatar-creator.git#v0.2.1",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.ugui": "1.0.0",
-        "com.unity.nuget.newtonsoft-json": "3.0.2"
-      },
-      "hash": "65ab1e13e81d18e3af3bf42c8d5690ba7dfc500e"
-    },
     "com.readyplayerme.avatarloader": {
       "version": "https://github.com/readyplayerme/rpm-unity-sdk-avatar-loader.git#v1.2.0",
       "depth": 0,
