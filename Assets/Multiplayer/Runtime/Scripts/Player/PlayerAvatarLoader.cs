@@ -21,6 +21,7 @@ namespace ReadyPlayerMe.Multiplayer
         private void OnAvatarLoaded(object sender, CompletionEventArgs e)
         {
             var avatar = e.Avatar;
+            avatar.transform.name = "Avatar";
             avatar.transform.SetParent(transform);
             avatar.transform.localPosition = Vector3.zero;
             avatar.transform.localRotation = Quaternion.identity;
