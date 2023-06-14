@@ -62,10 +62,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1475195968598476399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bde917ade934b2ab2cc6785ed4996ba, type: 3}
+  m_Script: {fileID: 11500000, guid: a8be95dafbfed464fbccb4c6ad3a924e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.025
+  speed: 0.05
 --- !u!135 &1232903729704974434
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 00f43083226875f4eb82cc6e25516acd, type: 2}
+  - {fileID: 2100000, guid: b412264b99824e04881313c2ae11f1d5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
