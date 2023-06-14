@@ -12,7 +12,7 @@ namespace ReadyPlayerMe.Multiplayer
             new NetworkVariable<FixedString128Bytes>(writePerm: NetworkVariableWritePermission.Owner);
 
         private PlayerAvatarLoader playerAvatarLoader;
-        public Action OnPLayerLoadComplete;
+        public event Action OnPLayerLoadComplete;
 
         private void Awake()
         {
