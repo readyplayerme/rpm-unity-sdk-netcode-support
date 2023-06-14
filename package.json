@@ -24,9 +24,9 @@
   },
   "samples": [
     {
-      "displayName": "Avatar Control",
-      "description": "A basic fight game sample that shows how to use avatar in multiplayer game using Netcode.",
-      "path": "Samples~/Avatar Control"
+      "displayName": "Basic Fighting Game",
+      "description": "A basic fighting game sample that shows how to use avatar in multiplayer game using Netcode.",
+      "path": "Samples~/FightingGame"
     }
   ]
 }
