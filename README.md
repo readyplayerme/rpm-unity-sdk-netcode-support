@@ -35,6 +35,12 @@ The sample showcases a rudimentary PvP fighting game (e.g., Street Fighter, Tekk
 
   <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/8de12393-233c-49e5-bb6d-6d099940740d">
 
+- To get support for [Client Network Transform](https://docs-multiplayer.unity3d.com/netcode/current/components/networktransform/#owner-authoritative-mode) a package has to be installed manually. 
+  Copy the following url and past in `Add package from git URL` window in package manager.
+  ```
+  https://github.com/Unity-Technologies/com.unity.multiplayer.samples.coop.git?path=/Packages/com.unity.multiplayer.samples.coop#main
+  ```
+
 ## Testing the Sample Project
 - Select Ready Player Me Netcode Support in Package manager and import the Basic Fighting Game sample.
 - Open the menu scene.<br>
