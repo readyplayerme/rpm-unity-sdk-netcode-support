@@ -72,3 +72,6 @@ The sample showcases a rudimentary PvP fighting game (e.g., Street Fighter, Tekk
 - Use [Network Animator](https://docs-multiplayer.unity3d.com/netcode/current/learn/dilmer/networkanimator/) instead of syncing animator parameters using network variable.
 - Fix player rotation sync.
 - Animation for fireball.
+
+## Known Issues
+- **Shared Access Violation Error:** When you test your build locally, all the game instances will try to write avatar file at the same time due to first time download and cause a file read error. Even though remote players won't experience this issue it is troubling while testing your app. You might test with same avatars and after they are cached this issue should not occur.
