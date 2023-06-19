@@ -21,7 +21,7 @@ The sample showcases a rudimentary PvP fighting game (e.g., Street Fighter, Tekk
 ## Installation
 - Copy git URL by clicking on green CODE button and then by clicking on copy button as shown.
 
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/f16e66c4-f484-4ef4-9ce3-ad315e4aeb8f">
+  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/f2cfab7b-ac70-4120-ba13-4254647ad363">
 
 - Open `Windox > Package Manager` menu, click on Plus (+) button and select `Add package from git URL`.
 
@@ -29,11 +29,11 @@ The sample showcases a rudimentary PvP fighting game (e.g., Street Fighter, Tekk
 
 - Paste the URL in and then click on `Add` button.
 
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/c6309852-be91-47ba-8620-308f37e6c147">
+  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/6b69f1b1-0453-4591-9c6a-017de113d40c">
 
 - After package installed you should see it under Ready Player Me block.
 
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/8de12393-233c-49e5-bb6d-6d099940740d">
+  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/2adc2168-b59d-48cf-be57-983942cce2d8">
 
 - To get support for [Client Network Transform](https://docs-multiplayer.unity3d.com/netcode/current/components/networktransform/#owner-authoritative-mode) a package has to be installed manually. 
   Copy the following url and past in `Add package from git URL` window in package manager.
@@ -44,11 +44,11 @@ The sample showcases a rudimentary PvP fighting game (e.g., Street Fighter, Tekk
 ## Testing the Sample Project
 - Select Ready Player Me Netcode Support in Package manager and import the Basic Fighting Game sample.
 - Open the menu scene.<br>
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/a3ad9210-1e4d-4207-8281-dc503228a0b0">
+  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/c53ee18b-3e64-4534-82e1-ae05aabf1736">
 - Add menu and game scene to build settings.
 - Run the scene, paste your avatar URL, add name and click on start button.
 - Build the scene and run it on another device to observe multiple avatars in the same scene.<br>
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-netcode-example/assets/1121080/b29dcb1d-5240-4249-b296-1abd6ee96caa">
+  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/f00706c4-51af-4626-8b05-e4b56cd0ea5c">
 
 ## Netcode API Used 
 #### [Network Mananger](https://docs-multiplayer.unity3d.com/netcode/current/components/networkmanager/)
