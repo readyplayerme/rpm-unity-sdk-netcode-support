@@ -1,62 +1,99 @@
 ﻿using System;
-using Unity.Collections;
-using Unity.Netcode;
 using UnityEngine;
+using Unity.Netcode;
+using Unity.Collections;
+using ReadyPlayerMe.AvatarLoader;
 
-namespace ReadyPlayerMe.Multiplayer
+namespace ReadyPlayerMe.NetcodeSupport
 {
-    [RequireComponent(typeof(PlayerAvatarLoader))]
+    /// <summary>
+    /// Used on Ready Player Me 
+    /// </summary>
+    [RequireComponent(typeof(NetworkObject))]
     public class NetworkPlayer : NetworkBehaviour
     {
-        private readonly NetworkVariable<FixedString128Bytes> avatarUrl =
-            new NetworkVariable<FixedString128Bytes>(writePerm: NetworkVariableWritePermission.Owner);
-
-        private PlayerAvatarLoader playerAvatarLoader;
+        [SerializeField] private AvatarConfig config;
+        
+        private Animator animator;
+        
+        private Transform leftEye;
+        private Transform rightEye;
+        
+        private SkinnedMeshRenderer[] skinnedMeshRenderers;
+    
+        private const string FULL_BODY_LEFT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/LeftEye";
+        private const string FULL_BODY_RIGHT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/RightEye";
+        
+        public static string InputUrl = string.Empty;
+        public NetworkVariable<FixedString64Bytes> avatarUrl = new NetworkVariable<FixedString64Bytes>(writePerm: NetworkVariableWritePermission.Owner);
         public event Action OnPLayerLoadComplete;
-
+        
         private void Awake()
         {
-            playerAvatarLoader = GetComponent<PlayerAvatarLoader>();
+            animator = GetComponent<Animator>();
+            
+            leftEye = transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME);
+            rightEye = transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME);
+            
+            skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         }
-
-        private void OnEnable()
-        {
-            playerAvatarLoader.Completed += OnPlayerLoadComplete;
-        }
-
-        private void OnDisable()
-        {
-            playerAvatarLoader.Completed -= OnPlayerLoadComplete;
-        }
-
-        public void LoadAvatar(string url)
-        {
-            avatarUrl.Value = url;
-            playerAvatarLoader.Load(avatarUrl.Value.ToString());
-        }
-
+        
         public override void OnNetworkSpawn()
         {
             if (IsOwner)
             {
-                return;
-            }
-
-            if (avatarUrl.Value.IsEmpty)
-            {
-                avatarUrl.OnValueChanged = (value, newValue) =>
+                avatarUrl.Value = InputUrl;
+                avatarUrl.OnValueChanged += (value, newValue) =>
                 {
-                    playerAvatarLoader.Load(avatarUrl.Value.ToString());
+                    LoadAvatar(newValue.ToString());
                 };
-                return;
+                
+                LoadAvatar(InputUrl);
             }
-
-            playerAvatarLoader.Load(avatarUrl.Value.ToString());
+            else if (Uri.IsWellFormedUriString(avatarUrl.Value.ToString(), UriKind.Absolute))
+            {
+                LoadAvatar(avatarUrl.Value.ToString());
+            }
+            
+            avatarUrl.OnValueChanged += (value, newValue) =>
+            {
+                LoadAvatar(newValue.ToString());
+            };
         }
 
-        private void OnPlayerLoadComplete()
+        private void LoadAvatar(string url)
         {
+            var loader = new AvatarObjectLoader();
+            loader.LoadAvatar(url);
+            loader.AvatarConfig = config;
+            loader.OnCompleted += (sender, args) =>
+            {
+                leftEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME).localPosition;
+                rightEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME).localPosition;
+            
+                TransferMesh(args.Avatar);
+            };
+        }
+
+        //TODO: Multiple mesh transfer support.
+        private void TransferMesh(GameObject source)
+        {
+            var sourceAnimator = source.GetComponentInChildren<Animator>();
+            var sourceMeshes = source.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            for (var i = 0; i < sourceMeshes.Length; i++)
+            {
+                var mesh = sourceMeshes[i].sharedMesh;
+                skinnedMeshRenderers[i].sharedMesh = mesh;
+
+                var materials = sourceMeshes[i].sharedMaterials;
+                skinnedMeshRenderers[i].sharedMaterials = materials;
+            }
+
+            var avatar = sourceAnimator.avatar;
+            animator.avatar = avatar;
             OnPLayerLoadComplete?.Invoke();
+            Destroy(source);
         }
     }
 }
