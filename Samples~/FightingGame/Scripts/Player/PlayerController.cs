@@ -9,7 +9,7 @@ namespace ReadyPlayerMe.NetcodeSupport
         private static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));
 
         [SerializeField] private PlayerMovement playerMovement;
-        [SerializeField] private NetworkAnimator playerAvatarLoader;
+        [SerializeField] private Animator animator;
         [SerializeField] private GameObject fireballPrefab;
         [SerializeField] private Transform fireballSpawnTransform;
 
@@ -19,7 +19,7 @@ namespace ReadyPlayerMe.NetcodeSupport
         {
             if (IsOwner)
             {
-                playerAvatarLoader.Animator.SetBool(IsWalking, isWalking);
+                animator.SetBool(IsWalking, isWalking);
 
                 if (PlayerInput.IsHoldingSpace)
                 {
