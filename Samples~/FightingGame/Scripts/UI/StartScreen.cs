@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ReadyPlayerMe.Multiplayer
+namespace ReadyPlayerMe.NetcodeSupport
 {
     public class StartScreen : MonoBehaviour
     {

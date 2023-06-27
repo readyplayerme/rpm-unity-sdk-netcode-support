@@ -1,7 +1,7 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-namespace ReadyPlayerMe.Multiplayer
+namespace ReadyPlayerMe.NetcodeSupport
 {
     public class Fireball : NetworkBehaviour
     {

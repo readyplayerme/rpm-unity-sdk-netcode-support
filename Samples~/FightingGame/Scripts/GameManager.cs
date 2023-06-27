@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace ReadyPlayerMe.Multiplayer
+namespace ReadyPlayerMe.NetcodeSupport
 {
     public class GameManager : MonoBehaviour
     {
@@ -22,7 +22,7 @@ namespace ReadyPlayerMe.Multiplayer
         private StartScreen startScreen;
         private HUD hud;
         private CameraController cameraController;
-        
+
         private NetworkType networkType;
 
         private static List<PlayerData> players;
@@ -58,7 +58,7 @@ namespace ReadyPlayerMe.Multiplayer
             networkSelectionScreen.OnButton -= LoadScene;
             SceneManager.sceneLoaded -= OnSceneLoaded;
         }
-        
+
         public void AddPlayer(PlayerData playerData)
         {
             players.Add(playerData);
@@ -92,6 +92,7 @@ namespace ReadyPlayerMe.Multiplayer
             AvatarUrl = avatarUrl;
             startScreen.gameObject.SetActive(false);
             networkSelectionScreen.gameObject.SetActive(true);
+            NetworkPlayer.InputUrl = avatarUrl;
         }
 
         private void LoadScene(NetworkType network)

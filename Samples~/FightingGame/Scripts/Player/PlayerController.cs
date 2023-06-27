@@ -1,37 +1,33 @@
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
-namespace ReadyPlayerMe.Multiplayer
+namespace ReadyPlayerMe.NetcodeSupport
 {
     public class PlayerController : NetworkBehaviour
     {
         private static readonly int IsWalking = Animator.StringToHash(nameof(IsWalking));
-        private readonly NetworkVariable<bool> isWalking =
-            new NetworkVariable<bool>(writePerm: NetworkVariableWritePermission.Owner);
 
         [SerializeField] private PlayerMovement playerMovement;
-        [SerializeField] private PlayerAvatarLoader playerAvatarLoader;
+        [SerializeField] private NetworkAnimator playerAvatarLoader;
         [SerializeField] private GameObject fireballPrefab;
         [SerializeField] private Transform fireballSpawnTransform;
 
+        private bool isWalking;
+
         private void Update()
         {
-            if (playerAvatarLoader.Animator != null)
+            if (IsOwner)
             {
-                playerAvatarLoader.Animator.SetBool(IsWalking, isWalking.Value);
-            }
+                playerAvatarLoader.Animator.SetBool(IsWalking, isWalking);
 
-            if (!IsOwner)
-            {
-                return;
-            }
+                if (PlayerInput.IsHoldingSpace)
+                {
+                    SpawnFireballServerRpc();
+                }
 
-            if (PlayerInput.IsHoldingSpace)
-            {
-                SpawnFireballServerRpc();
+                isWalking = playerMovement.ProcessMovement();
             }
-
-            isWalking.Value = playerMovement.ProcessMovement();
         }
 
         [ServerRpc]

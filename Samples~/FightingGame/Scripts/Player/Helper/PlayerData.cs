@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ReadyPlayerMe.Multiplayer
+namespace ReadyPlayerMe.NetcodeSupport
 {
     public class PlayerData
     {

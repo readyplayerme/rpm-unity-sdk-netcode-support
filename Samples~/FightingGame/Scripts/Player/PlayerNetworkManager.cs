@@ -2,7 +2,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-namespace ReadyPlayerMe.Multiplayer
+namespace ReadyPlayerMe.NetcodeSupport
 {
     public class PlayerNetworkManager : NetworkBehaviour
     {
@@ -34,7 +34,7 @@ namespace ReadyPlayerMe.Multiplayer
         {
             if (IsOwner)
             {
-                networkPlayer.LoadAvatar(GameManager.Instance.AvatarUrl);
+                // networkPlayer.LoadAvatar(GameManager.Instance.AvatarUrl);
                 playerName.Value = GameManager.Instance.PlayerName;
                 transform.name = GameManager.Instance.PlayerName;
                 SetPlayerPositionAndRotation();
