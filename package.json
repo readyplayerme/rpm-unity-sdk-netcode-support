@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "displayName": "Ready Player Me Netcode Support",
   "description": "NetworkPlayer component that allows to use Ready Player Me avatars in using Unity Netcode for GameObjects.",
-  "unity": "2020.3",
+  "unity": "2021.3",
   "unityRelease": "0f1",
   "documentationUrl": "https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/blob/main/README.md",
   "changelogUrl": "https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/blob/main/CHANGELOG.md",
@@ -29,6 +29,11 @@
       "displayName": "Basic Fighting Game",
       "description": "A basic fighting game sample that shows how to use avatar in multiplayer game using Netcode.",
       "path": "Samples~/FightingGame"
+    },
+    {
+      "displayName": "Avatar Control",
+      "description": "A basic sample with NetworkPlayer component that shows how to use avatar in multiplayer game.",
+      "path": "Samples~/AvatarControl"
     }
   ]
 }
