@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 4959210049948067057}
   - component: {fileID: -1016906781056901136}
   - component: {fileID: 5034148213622373531}
-  - component: {fileID: -1562312441396385529}
+  - component: {fileID: 527308785482030337}
   m_Layer: 0
   m_Name: RPM_Netcode_Character
   m_TagString: Untagged
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d75a35ba808b2c749a76830c90c13c55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 11400000, guid: 861102b7434add842aa9331ea9445b8e, type: 2}
+  config: {fileID: 0}
   avatarUrl:
     m_InternalValue:
       utf8LengthInBytes: 0
@@ -289,7 +289,7 @@ MonoBehaviour:
         byte0059: 0
         byte0060: 0
         byte0061: 0
---- !u!114 &-1562312441396385529
+--- !u!114 &527308785482030337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1192642991364198764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fafb054d0f8e2c247ba05dc4c658275b, type: 3}
+  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncPositionX: 1

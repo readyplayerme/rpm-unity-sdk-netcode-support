@@ -58,6 +58,22 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 951099334
       objectReference: {fileID: 0}
+    - target: {fileID: 527308785482030337, guid: f626a595ba3f9d641a6f794a171c66f8, type: 3}
+      propertyPath: SyncScaleX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527308785482030337, guid: f626a595ba3f9d641a6f794a171c66f8, type: 3}
+      propertyPath: SyncScaleY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527308785482030337, guid: f626a595ba3f9d641a6f794a171c66f8, type: 3}
+      propertyPath: SyncScaleZ
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 527308785482030337, guid: f626a595ba3f9d641a6f794a171c66f8, type: 3}
+      propertyPath: SyncPositionZ
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1192642991364198764, guid: f626a595ba3f9d641a6f794a171c66f8, type: 3}
       propertyPath: m_Name
       value: RPM_Netcode_Test_Character
@@ -66,6 +82,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3edaed84cade8984daaf81891cc0e89e, type: 2}
+    - target: {fileID: 5034148213622373531, guid: f626a595ba3f9d641a6f794a171c66f8, type: 3}
+      propertyPath: config
+      value: 
+      objectReference: {fileID: 11400000, guid: 861102b7434add842aa9331ea9445b8e, type: 2}
     - target: {fileID: 7968283499595012214, guid: f626a595ba3f9d641a6f794a171c66f8, type: 3}
       propertyPath: m_RootOrder
       value: 0
