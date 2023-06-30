@@ -12,7 +12,14 @@ namespace ReadyPlayerMe.NetcodeSupport
     [RequireComponent(typeof(NetworkObject))]
     public class NetworkPlayer : NetworkBehaviour
     {
+        private const string FULL_BODY_LEFT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/LeftEye";
+        private const string FULL_BODY_RIGHT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/RightEye";
+
         [SerializeField] private AvatarConfig config;
+        
+        public static string InputUrl = string.Empty;
+        public NetworkVariable<FixedString64Bytes> avatarUrl = new NetworkVariable<FixedString64Bytes>(writePerm: NetworkVariableWritePermission.Owner);
+        public event Action OnPLayerLoadComplete;
         
         private Animator animator;
         
@@ -20,13 +27,6 @@ namespace ReadyPlayerMe.NetcodeSupport
         private Transform rightEye;
         
         private SkinnedMeshRenderer[] skinnedMeshRenderers;
-    
-        private const string FULL_BODY_LEFT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/LeftEye";
-        private const string FULL_BODY_RIGHT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/RightEye";
-        
-        public static string InputUrl = string.Empty;
-        public NetworkVariable<FixedString64Bytes> avatarUrl = new NetworkVariable<FixedString64Bytes>(writePerm: NetworkVariableWritePermission.Owner);
-        public event Action OnPLayerLoadComplete;
         
         private void Awake()
         {
