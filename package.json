@@ -1,6 +1,6 @@
 {
   "name": "com.readyplayerme.netcodesupport",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "displayName": "Ready Player Me Netcode Support",
   "description": "NetworkPlayer component that allows to use Ready Player Me avatars in using Unity Netcode for GameObjects.",
   "unity": "2021.3",
