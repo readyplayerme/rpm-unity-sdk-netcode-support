@@ -5,7 +5,7 @@ namespace ReadyPlayerMe.NetcodeSupport.Editor
 {
     public static class TransferPrefab
     {
-        [MenuItem("Ready Player Me/Transfer Netcode Prefab")]
+        [MenuItem("Ready Player Me/Transfer Netcode Prefab", priority = 35)]
         public static void Transfer()
         {
             string[] guids = AssetDatabase.FindAssets("t:prefab RPM_Netcode_Character");
