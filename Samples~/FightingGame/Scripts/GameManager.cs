@@ -10,7 +10,7 @@ namespace ReadyPlayerMe.NetcodeSupport
     {
         public static GameManager Instance { get; private set; }
 
-        private const string GAME_SCENE = "Game";
+        private const string GAME_SCENE = "FightingGame";
         private const int MIN_PLAYERS = 2;
 
         [SerializeField] private Loading loading;

@@ -5,7 +5,9 @@ namespace ReadyPlayerMe.NetcodeSupport.Editor
 {
     public static class TransferPrefab
     {
-        [MenuItem("Ready Player Me/Transfer Netcode Prefab")]
+        private const string PREFAB_PATH = "Assets/Ready Player Me/Resources/RPM_Netcode_Character.prefab";
+
+        [MenuItem("Ready Player Me/Transfer Netcode Prefab", priority = 34)]
         public static void Transfer()
         {
             string[] guids = AssetDatabase.FindAssets("t:prefab RPM_Netcode_Character");
@@ -25,9 +27,9 @@ namespace ReadyPlayerMe.NetcodeSupport.Editor
                 }
 
                 string path = AssetDatabase.GUIDToAssetPath(guids[0]);
-                AssetDatabase.CopyAsset(path, "Assets/Ready Player Me/Resources/RPM_Character.prefab");
-                Selection.activeObject = AssetDatabase.LoadAssetAtPath("Assets/Ready Player Me/Resources/RPM_Character.prefab", typeof(GameObject));
-                Debug.Log("Netcode prefab transferred to Assets/Ready Player Me/Resources/RPM_Character.prefab");
+                AssetDatabase.CopyAsset(path, PREFAB_PATH);
+                Selection.activeObject = AssetDatabase.LoadAssetAtPath(PREFAB_PATH, typeof(GameObject));
+                Debug.Log($"Netcode prefab transferred to {PREFAB_PATH}");
             }
         }
     }
