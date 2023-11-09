@@ -1,3 +1,4 @@
+using ReadyPlayerMe.Core.Editor;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,17 +19,14 @@ namespace ReadyPlayerMe.NetcodeSupport.Editor
             }
             else
             {
-                if (AssetDatabase.LoadAssetAtPath("Assets/Ready Player Me/Resources/RPM_Character.prefab", typeof(GameObject)))
+                if (AssetDatabase.LoadAssetAtPath(PREFAB_PATH, typeof(GameObject)))
                 {
-                    if (!EditorUtility.DisplayDialog("Warning", "RPM_Character prefab already exists. Do you want to overwrite it?", "Yes", "No"))
+                    if (!EditorUtility.DisplayDialog("Warning", "RPM_Netcode_Character prefab already exists. Do you want to overwrite it?", "Yes", "No"))
                     {
                         return;
                     }
                 }
-
-                string path = AssetDatabase.GUIDToAssetPath(guids[0]);
-                AssetDatabase.CopyAsset(path, PREFAB_PATH);
-                Selection.activeObject = AssetDatabase.LoadAssetAtPath(PREFAB_PATH, typeof(GameObject));
+                PrefabTransferHelper.TransferPrefabByGuid(guids[0], PREFAB_PATH);
                 Debug.Log($"Netcode prefab transferred to {PREFAB_PATH}");
             }
         }

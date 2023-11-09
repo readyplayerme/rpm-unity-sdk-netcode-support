@@ -12,14 +12,11 @@ namespace ReadyPlayerMe.NetcodeSupport
     [RequireComponent(typeof(NetworkObject))]
     public class NetworkPlayer : NetworkBehaviour
     {
-        private const string FULL_BODY_LEFT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/LeftEye";
-        private const string FULL_BODY_RIGHT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/RightEye";
-
         [SerializeField] private AvatarConfig config;
 
         public static string InputUrl = string.Empty;
         public NetworkVariable<FixedString64Bytes> avatarUrl = new NetworkVariable<FixedString64Bytes>(writePerm: NetworkVariableWritePermission.Owner);
-        public event Action OnPLayerLoadComplete;
+        public event Action OnPlayerLoadComplete;
 
         private Animator animator;
 
@@ -32,8 +29,8 @@ namespace ReadyPlayerMe.NetcodeSupport
         {
             animator = GetComponent<Animator>();
 
-            leftEye = transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME);
-            rightEye = transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME);
+            leftEye = AvatarBoneHelper.GetLeftEyeBone(transform, true);
+            rightEye = AvatarBoneHelper.GetRightEyeBone(transform, true);
 
             skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         }
@@ -68,32 +65,13 @@ namespace ReadyPlayerMe.NetcodeSupport
             loader.AvatarConfig = config;
             loader.OnCompleted += (sender, args) =>
             {
-                leftEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME).localPosition;
-                rightEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME).localPosition;
+                leftEye.transform.localPosition = AvatarBoneHelper.GetLeftEyeBone(args.Avatar.transform, true).localPosition;
+                rightEye.transform.localPosition = AvatarBoneHelper.GetRightEyeBone(args.Avatar.transform, true).localPosition;
 
-                TransferMesh(args.Avatar);
+                AvatarMeshHelper.TransferMesh(args.Avatar, skinnedMeshRenderers, animator);
+                Destroy(args.Avatar);
+                OnPlayerLoadComplete?.Invoke();
             };
-        }
-
-        //TODO: Multiple mesh transfer support.
-        private void TransferMesh(GameObject source)
-        {
-            var sourceAnimator = source.GetComponentInChildren<Animator>();
-            SkinnedMeshRenderer[] sourceMeshes = source.GetComponentsInChildren<SkinnedMeshRenderer>();
-
-            for (var i = 0; i < sourceMeshes.Length; i++)
-            {
-                Mesh mesh = sourceMeshes[i].sharedMesh;
-                skinnedMeshRenderers[i].sharedMesh = mesh;
-
-                Material[] materials = sourceMeshes[i].sharedMaterials;
-                skinnedMeshRenderers[i].sharedMaterials = materials;
-            }
-
-            Avatar avatar = sourceAnimator.avatar;
-            animator.avatar = avatar;
-            OnPLayerLoadComplete?.Invoke();
-            Destroy(source);
         }
     }
 }
