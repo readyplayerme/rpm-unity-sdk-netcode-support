@@ -25,12 +25,14 @@ public abstract class DependencyInstaller
             return;
         }
 
+        if (PackageManagerHelper.IsPackageInstalled(NETCODE_HELPER_PACKAGE))
+        {
+            return;
+        }
+
         if (EditorUtility.DisplayDialog("Ready Player Me", DIALOG_MESSAGE, "OK", "Cancel"))
         {
-            if (!PackageManagerHelper.IsPackageInstalled(NETCODE_HELPER_PACKAGE))
-            {
-                PackageManagerHelper.AddPackage(NETCODE_HELPER_PACKAGE);
-            }
+            PackageManagerHelper.AddPackage(NETCODE_HELPER_PACKAGE);
         }
     }
 }
