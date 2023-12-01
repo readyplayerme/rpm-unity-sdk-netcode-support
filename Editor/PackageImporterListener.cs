@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using ReadyPlayerMe.Core.Analytics;
-using ReadyPlayerMe.Core.Editor.Models;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEngine;
