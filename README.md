@@ -8,9 +8,9 @@ This provides support for loading RPM avatar in a multiplayer application using 
 
 ## Requirements
 - Unity Version 2021.3 or higher
-- [Ready Player Me Core](https://github.com/readyplayerme/rpm-unity-sdk-core) - v3.0.0+
-- [Ready Player Me WebView](https://github.com/readyplayerme/rpm-unity-sdk-webview) - v1.2.0+
-- [glTFast](https://github.com/atteneder/glTFast) - v5.0.0
+- [Ready Player Me Core](https://github.com/readyplayerme/rpm-unity-sdk-core) - v4.0.0+
+- [Ready Player Me WebView](https://github.com/readyplayerme/rpm-unity-sdk-webview) - v2.0.0
+- [glTFast](https://github.com/atteneder/glTFast) - v5.0.0+
 - [Multiplayer Samples Coop](https://docs-multiplayer.unity3d.com/netcode/current/components/networktransform/#owner-authoritative-mode) - main
 
 ### Dependencies included in package
@@ -33,9 +33,9 @@ This provides support for loading RPM avatar in a multiplayer application using 
 - After package installed you should see it under Ready Player Me block.
 
   <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/7f9620cd-40aa-4d9a-92ab-090607782558">
-
-- To get support for [Client Network Transform](https://docs-multiplayer.unity3d.com/netcode/current/components/networktransform/#owner-authoritative-mode) a package has to be installed manually. 
-  Copy the following url and past in `Add package from git URL` window in package manager.
+- After installation you will see a popup to import an assisting package to get support for [Client Network Transform](https://docs-multiplayer.unity3d.com/netcode/current/components/networktransform/#owner-authoritative-mode). Select ok to import the package.
+  
+- For installing the package manually, copy the following url and past in `Add package from git URL` window in package manager.
   ```
   https://github.com/Unity-Technologies/com.unity.multiplayer.samples.coop.git?path=/Packages/com.unity.multiplayer.samples.coop#main
   ```
