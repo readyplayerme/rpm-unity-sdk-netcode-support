@@ -27,7 +27,7 @@ namespace ReadyPlayerMe.NetcodeSupport.Editor
                         return;
                     }
                 }
-                PrefabTransferHelper.TransferPrefabByGuid(guids[0], NEW_PREFAB_PATH);
+                PrefabHelper.TransferPrefabByGuid(guids[0], NEW_PREFAB_PATH);
                 Debug.Log($"Netcode prefab transferred to {NEW_PREFAB_PATH}");
             }
         }
