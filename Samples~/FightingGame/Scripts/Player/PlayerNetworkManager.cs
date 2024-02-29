@@ -22,12 +22,12 @@ namespace ReadyPlayerMe.NetcodeSupport
 
         private void OnEnable()
         {
-            networkPlayer.OnPLayerLoadComplete += OnPlayerLoadComplete;
+            networkPlayer.OnPlayerLoadComplete += OnPlayerLoadComplete;
         }
 
         private void OnDisable()
         {
-            networkPlayer.OnPLayerLoadComplete -= OnPlayerLoadComplete;
+            networkPlayer.OnPlayerLoadComplete -= OnPlayerLoadComplete;
         }
 
         public override void OnNetworkSpawn()
