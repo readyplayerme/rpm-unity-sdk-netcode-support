@@ -1,9 +1,7 @@
 {
     "name": "ReadyPlayerMe.NetcodeSupport.Editor",
     "rootNamespace": "",
-    "references": [
-        "ReadyPlayerMe.Core.Editor"
-    ],
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],

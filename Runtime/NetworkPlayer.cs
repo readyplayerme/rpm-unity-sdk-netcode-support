@@ -12,27 +12,22 @@ namespace ReadyPlayerMe.NetcodeSupport
     [RequireComponent(typeof(NetworkObject))]
     public class NetworkPlayer : NetworkBehaviour
     {
+        private const string FULL_BODY_LEFT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/LeftEye";
+        private const string FULL_BODY_RIGHT_EYE_BONE_NAME = "Armature/Hips/Spine/Spine1/Spine2/Neck/Head/RightEye";
+
         [SerializeField] private AvatarConfig config;
 
         public static string InputUrl = string.Empty;
         public NetworkVariable<FixedString64Bytes> avatarUrl = new NetworkVariable<FixedString64Bytes>(writePerm: NetworkVariableWritePermission.Owner);
         public event Action OnPlayerLoadComplete;
-
-        private Animator animator;
-
+        
         private Transform leftEye;
         private Transform rightEye;
 
-        private SkinnedMeshRenderer[] skinnedMeshRenderers;
-
         private void Awake()
         {
-            animator = GetComponent<Animator>();
-
-            leftEye = AvatarBoneHelper.GetLeftEyeBone(transform, true);
-            rightEye = AvatarBoneHelper.GetRightEyeBone(transform, true);
-
-            skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+            leftEye = transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME);
+            rightEye = transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME);
         }
 
         public override void OnNetworkSpawn()
@@ -65,10 +60,10 @@ namespace ReadyPlayerMe.NetcodeSupport
             loader.AvatarConfig = config;
             loader.OnCompleted += (sender, args) =>
             {
-                leftEye.transform.localPosition = AvatarBoneHelper.GetLeftEyeBone(args.Avatar.transform, true).localPosition;
-                rightEye.transform.localPosition = AvatarBoneHelper.GetRightEyeBone(args.Avatar.transform, true).localPosition;
+                leftEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME).localPosition;
+                rightEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME).localPosition;
 
-                AvatarMeshHelper.TransferMesh(args.Avatar, skinnedMeshRenderers, animator);
+                AvatarMeshHelper.TransferMesh(args.Avatar, gameObject);
                 Destroy(args.Avatar);
                 OnPlayerLoadComplete?.Invoke();
             };
