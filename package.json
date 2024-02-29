@@ -10,7 +10,6 @@
   "licensesUrl": "https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/blob/main/LICENSE.md",
   "dependencies": {
     "com.unity.ugui": "1.0.0",
-    "com.unity.multiplayer.tools": "1.1.0",
     "com.unity.netcode.gameobjects": "1.7.1"
   },
   "keywords": [
