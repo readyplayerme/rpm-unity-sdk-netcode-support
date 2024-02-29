@@ -19,23 +19,15 @@ namespace ReadyPlayerMe.NetcodeSupport
 
         public static string InputUrl = string.Empty;
         public NetworkVariable<FixedString64Bytes> avatarUrl = new NetworkVariable<FixedString64Bytes>(writePerm: NetworkVariableWritePermission.Owner);
-        public event Action OnPLayerLoadComplete;
-
-        private Animator animator;
-
+        public event Action OnPlayerLoadComplete;
+        
         private Transform leftEye;
         private Transform rightEye;
 
-        private SkinnedMeshRenderer[] skinnedMeshRenderers;
-
         private void Awake()
         {
-            animator = GetComponent<Animator>();
-
             leftEye = transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME);
             rightEye = transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME);
-
-            skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         }
 
         public override void OnNetworkSpawn()
@@ -71,29 +63,10 @@ namespace ReadyPlayerMe.NetcodeSupport
                 leftEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME).localPosition;
                 rightEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME).localPosition;
 
-                TransferMesh(args.Avatar);
+                AvatarMeshHelper.TransferMesh(args.Avatar, gameObject);
+                Destroy(args.Avatar);
+                OnPlayerLoadComplete?.Invoke();
             };
-        }
-
-        //TODO: Multiple mesh transfer support.
-        private void TransferMesh(GameObject source)
-        {
-            var sourceAnimator = source.GetComponentInChildren<Animator>();
-            SkinnedMeshRenderer[] sourceMeshes = source.GetComponentsInChildren<SkinnedMeshRenderer>();
-
-            for (var i = 0; i < sourceMeshes.Length; i++)
-            {
-                Mesh mesh = sourceMeshes[i].sharedMesh;
-                skinnedMeshRenderers[i].sharedMesh = mesh;
-
-                Material[] materials = sourceMeshes[i].sharedMaterials;
-                skinnedMeshRenderers[i].sharedMaterials = materials;
-            }
-
-            Avatar avatar = sourceAnimator.avatar;
-            animator.avatar = avatar;
-            OnPLayerLoadComplete?.Invoke();
-            Destroy(source);
         }
     }
 }
