@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.2.0] - 2024.02.29
+## [0.2.1] - 2024.MM.DD
 
 ### Updated
 - Netcode Character Prefab updated with multimesh support
@@ -11,6 +11,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 - Variable name typos
+
+### Removed
+- Figtihng Game Sample removed
 
 ## [0.2.0] - 2023.08.14
 
