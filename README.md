@@ -2,21 +2,19 @@
 
 This provides support for loading RPM avatar in a multiplayer application using [Netcode](https://unity.com/products/netcode) and [Ready Player Me Unity SDK](https://github.com/readyplayerme/rpm-unity-sdk-core). This can be used as a reference for anyone wanting to use Ready Player Me Unity SDK to create a multiplayer using Unity Netcode. It also provides a working samples:
 - Avatar Control - It showcases how to have a simple controls for avatar in a multiplayer game.
-- Basic Fighting Game - It showcases a rudimentary PvP fighting game (e.g., Street Fighter, Tekken).
 
 > Note: These sample doesn't contain a completed games but rather a working example of a very basic multiplayer.
 
 ## Requirements
 - Unity Version 2021.3 or higher
-- [Ready Player Me Core](https://github.com/readyplayerme/rpm-unity-sdk-core) - v1.2.0
-- [Ready Player Me Avatar Loader](https://github.com/readyplayerme/rpm-unity-sdk-avatar-loader) - v1.2.0
-- [Ready Player Me WebView](https://github.com/readyplayerme/rpm-unity-sdk-webview) - v1.1.1
-- [glTFast](https://github.com/atteneder/glTFast) - v5.0.0
+- [Ready Player Me Core](https://github.com/readyplayerme/rpm-unity-sdk-core) - v4.0.0+
+- [Ready Player Me WebView](https://github.com/readyplayerme/rpm-unity-sdk-webview) - v2.0.0
+- [glTFast](https://github.com/atteneder/glTFast) - v5.0.0+
 - [Multiplayer Samples Coop](https://docs-multiplayer.unity3d.com/netcode/current/components/networktransform/#owner-authoritative-mode) - main
 
 ### Dependencies included in package
-- Netcode for Gameobjects - v1.4.0
-- Multiplayer Tools - v1.1.0
+- Netcode for GameObjects - v1.4.0
+- [Multiplayer Tools](https://github.com/Unity-Technologies/com.unity.multiplayer.samples.coop.git?path=/Packages/com.unity.multiplayer.samples.coop#main) - v1.1.0
 
 ## Installation
 - Copy git URL by clicking on green Code button and then by clicking on copy button as shown.
@@ -34,9 +32,9 @@ This provides support for loading RPM avatar in a multiplayer application using 
 - After package installed you should see it under Ready Player Me block.
 
   <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/7f9620cd-40aa-4d9a-92ab-090607782558">
-
-- To get support for [Client Network Transform](https://docs-multiplayer.unity3d.com/netcode/current/components/networktransform/#owner-authoritative-mode) a package has to be installed manually. 
-  Copy the following url and past in `Add package from git URL` window in package manager.
+- After installation you will see a popup to import an assisting package to get support for [Client Network Transform](https://docs-multiplayer.unity3d.com/netcode/current/components/networktransform/#owner-authoritative-mode). Select ok to import the package.
+  
+- For installing the package manually, copy the following url and past in `Add package from git URL` window in package manager.
   ```
   https://github.com/Unity-Technologies/com.unity.multiplayer.samples.coop.git?path=/Packages/com.unity.multiplayer.samples.coop#main
   ```
@@ -51,18 +49,9 @@ This provides support for loading RPM avatar in a multiplayer application using 
 - Run the scene, paste your avatar URL and click on start button.
 - Build the scene and run it on another device to observe multiple avatars in the same scene.<br>
   <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/5bcbf2a0-e113-403c-9327-18d8f5e14288">
-### Simple Figthing Game
-- Select Ready Player Me Netcode Support in Package manager and import the Basic Fighting Game sample.
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/79401c2a-40e6-44d3-ac71-ceefda3252cd">
-- Open the menu scene.<br>
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/c53ee18b-3e64-4534-82e1-ae05aabf1736">
-- Add menu and game scene to build settings.
-- Run the scene, paste your avatar URL, add name and click on start button.
-- Build the scene and run it on another device to observe multiple avatars in the same scene.<br>
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/f00706c4-51af-4626-8b05-e4b56cd0ea5c">
 
 ## Netcode API Used 
-#### [Network Mananger](https://docs-multiplayer.unity3d.com/netcode/current/components/networkmanager/)
+#### [Network Manager](https://docs-multiplayer.unity3d.com/netcode/current/components/networkmanager/)
 - Used for starting as host, server, or client. 
 - Provides API for checking if isHost, isOwner, and isClient. 
 - For spawning player and fireball.
