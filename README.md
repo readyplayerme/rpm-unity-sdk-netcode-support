@@ -2,7 +2,6 @@
 
 This provides support for loading RPM avatar in a multiplayer application using [Netcode](https://unity.com/products/netcode) and [Ready Player Me Unity SDK](https://github.com/readyplayerme/rpm-unity-sdk-core). This can be used as a reference for anyone wanting to use Ready Player Me Unity SDK to create a multiplayer using Unity Netcode. It also provides a working samples:
 - Avatar Control - It showcases how to have a simple controls for avatar in a multiplayer game.
-- Basic Fighting Game - It showcases a rudimentary PvP fighting game (e.g., Street Fighter, Tekken).
 
 > Note: These sample doesn't contain a completed games but rather a working example of a very basic multiplayer.
 
@@ -50,15 +49,6 @@ This provides support for loading RPM avatar in a multiplayer application using 
 - Run the scene, paste your avatar URL and click on start button.
 - Build the scene and run it on another device to observe multiple avatars in the same scene.<br>
   <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/5bcbf2a0-e113-403c-9327-18d8f5e14288">
-### Simple Fighting Game
-- Select Ready Player Me Netcode Support in Package manager and import the Basic Fighting Game sample.
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/79401c2a-40e6-44d3-ac71-ceefda3252cd">
-- Open the menu scene.<br>
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/c53ee18b-3e64-4534-82e1-ae05aabf1736">
-- Add menu and game scene to build settings.
-- Run the scene, paste your avatar URL, add name and click on start button.
-- Build the scene and run it on another device to observe multiple avatars in the same scene.<br>
-  <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/f00706c4-51af-4626-8b05-e4b56cd0ea5c">
 
 ## Netcode API Used 
 #### [Network Manager](https://docs-multiplayer.unity3d.com/netcode/current/components/networkmanager/)
