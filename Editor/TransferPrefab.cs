@@ -9,7 +9,7 @@ namespace ReadyPlayerMe.NetcodeSupport.Editor
         private const string NEW_PREFAB_PATH = "Assets/Ready Player Me/Resources/RPM_Netcode_Character.prefab";
         private const string PREFAB_ASSET_NAME = "t:prefab RPM_Netcode_Character";
 
-        [MenuItem("Ready Player Me/Transfer Netcode Prefab", priority = 34)]
+        [MenuItem("Tools/Ready Player Me/Transfer Netcode Prefab", priority = 34)]
         public static void Transfer()
         {
             var guids = AssetDatabase.FindAssets(PREFAB_ASSET_NAME);
