@@ -21,7 +21,7 @@ This provides support for loading RPM avatar in a multiplayer application using 
 
   <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-netcode-support/assets/1121080/f2cfab7b-ac70-4120-ba13-4254647ad363">
 
-- Open `Windox > Package Manager` menu, click on Plus (+) button and select `Add package from git URL`.
+- Open `Window > Package Manager` menu, click on Plus (+) button and select `Add package from git URL`.
 
   <img width="500" alt="image" src="https://github.com/readyplayerme/rpm-unity-sdk-photon-support/assets/3163281/54874f4e-8ff9-4011-aca1-0826ac0538a7">
 
