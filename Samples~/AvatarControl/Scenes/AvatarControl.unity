@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028353, g: 0.2257137, b: 0.30692255, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465791, g: 0.49641317, b: 0.57481784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1262,7 +1262,8 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1754146316}
-    PlayerPrefab: {fileID: 918681697409016310, guid: 39bfa80ee51e22c4b9b3847156eb4def, type: 3}
+    PlayerPrefab: {fileID: 918681697409016310, guid: 39bfa80ee51e22c4b9b3847156eb4def,
+      type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 8c66e821e14565f40a0c65c9a7bac000, type: 2}
@@ -1637,7 +1638,7 @@ GameObject:
   - component: {fileID: 5634591147473430356}
   - component: {fileID: 5634591147473430357}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1663,7 +1664,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 13818617b2642f8458614799effcd782, type: 2}
+  - {fileID: 2100000, guid: 307421f4d1c6ec94f94579be6b8b8a6e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
