@@ -3,6 +3,7 @@ using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
 using ReadyPlayerMe.Core;
+using UnityEngine.Events;
 
 namespace ReadyPlayerMe.NetcodeSupport
 {
@@ -19,8 +20,9 @@ namespace ReadyPlayerMe.NetcodeSupport
 
         public static string InputUrl = string.Empty;
         public NetworkVariable<FixedString64Bytes> avatarUrl = new NetworkVariable<FixedString64Bytes>(writePerm: NetworkVariableWritePermission.Owner);
-        public event Action OnPlayerLoadComplete;
-        
+        [Space(10)]
+        public UnityEvent OnPlayerLoadComplete;
+
         private Transform leftEye;
         private Transform rightEye;
 
@@ -53,6 +55,12 @@ namespace ReadyPlayerMe.NetcodeSupport
             };
         }
 
+        private void FixEyePositions(GameObject newAvatar)
+        {
+            leftEye.transform.localPosition = newAvatar.transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME).localPosition;
+            rightEye.transform.localPosition = newAvatar.transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME).localPosition;
+        }
+
         private void LoadAvatar(string url)
         {
             var loader = new AvatarObjectLoader();
@@ -60,9 +68,7 @@ namespace ReadyPlayerMe.NetcodeSupport
             loader.AvatarConfig = config;
             loader.OnCompleted += (sender, args) =>
             {
-                leftEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_LEFT_EYE_BONE_NAME).localPosition;
-                rightEye.transform.localPosition = args.Avatar.transform.Find(FULL_BODY_RIGHT_EYE_BONE_NAME).localPosition;
-
+                FixEyePositions(args.Avatar);
                 AvatarMeshHelper.TransferMesh(args.Avatar, gameObject);
                 Destroy(args.Avatar);
                 OnPlayerLoadComplete?.Invoke();

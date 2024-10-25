@@ -3,7 +3,16 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.2.1] - 2024.MM.DD
+## [0.2.1] - 2024.10.25
+
+### Updated
+- Updated assembly name to prevent naming conflicts
+- File menu path updated to match other RPM packages
+
+### Fixed 
+- Fixed an issue with missing materials in the scene
+
+## [0.2.1] - 2024.03.04
 
 ### Updated
 - Netcode Character Prefab updated with multimesh support
@@ -13,7 +22,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Variable name typos
 
 ### Removed
-- Figtihng Game Sample removed
+- Fighting Game Sample removed
 
 ## [0.2.0] - 2023.08.14
 
