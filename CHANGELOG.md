@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 - Updated assembly name to prevent naming conflicts
+- File menu path updated to match other RPM packages
+
+### Fixed 
+- Fixed an issue with missing materials in the scene
 
 ## [0.2.1] - 2024.03.04
 
